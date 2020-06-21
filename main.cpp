@@ -17,12 +17,17 @@ T GetBezierPointOnCurve_4_points(const std::vector<T>& P, float t)
 
 	assert(
 		(t >= 0 && t <= 1) 
-    && "T dois etre compris entre 0 et 1"
+    		&& "T dois etre compris entre 0 et 1"
 	);
 
 	auto n{ P.size() };
 
-  // TODO : move bernstein polynomes into a generic function
+	if(n!=4){
+		//works only for 4 points for now
+		return 0;
+	}
+	
+  	// TODO : move bernstein polynomes into a generic function
 	T control_point_1 = pow(1.0 - t, 3) * P[0];
 	T control_point_2 = 3 * pow(1.0 - t, 2) * t * P[1];
 	T control_point_3 = 3 * (1.0 - t) * pow(t, 2) * P[2];
@@ -33,8 +38,8 @@ T GetBezierPointOnCurve_4_points(const std::vector<T>& P, float t)
 
 int main(void)
 {
-  // Cubic curve.
-  // Curve goes from point 1 to point 4 without touching point 2 and 3 ( which are direction vectors )
+  	// Cubic curve.
+  	// Curve goes from point 1 to point 4 without touching point 2 and 3 ( which are direction vectors )
 	std::vector<float> P = { 0.0 , 1.0 , 1.0 , 0.0 };
   
 	for (float t = 0.0f; t <= 1.0f; t += 0.1f) {
